@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/loginscreen"
+    tools:context=".activity.LoginActivity">
+
+    <TextView
+        android:id="@+id/tvLogin"
+        android:layout_width="60dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="60dp"
+        android:text="Login"
+        android:textColor="#373737"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvAccount"
+        android:layout_width="128dp"
+        android:layout_height="26dp"
+        android:lineHeight="24dp"
+        android:text="Access account"
+        android:textAlignment="center"
+        android:textColor="#373737"
+        android:textFontWeight="400"
+        android:textSize="16dp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLogin" />
+
+    <LinearLayout
+        android:id="@+id/llInternet"
+        android:layout_width="125dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="71dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAccount">
+
+        <ImageButton
+            android:id="@+id/imgGoogle"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:background="@drawable/google"
+            android:src="@drawable/ic_google" />
+
+        <ImageButton
+            android:id="@+id/imgFB"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/google"
+            android:src="@drawable/ic_facebook" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvLoginWithEmail"
+        android:layout_width="139dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="8dp"
+        android:lineHeight="23dp"
+        android:text="or Login with Email"
+        android:textAlignment="center"
+        android:textColor="#838383"
+        android:textFontWeight="400"
+        android:textSize="15dp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llInternet" />
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="45dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="41dp"
+        android:layout_marginTop="13dp"
+        android:lineHeight="24dp"
+        android:text="Email"
+        android:textColor="#373737"
+        android:textFontWeight="500"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLoginWithEmail" />
+
+    <EditText
+        android:id="@+id/edtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/item_email"
+        android:hint="sample@email.com"
+        android:lineHeight="24dp"
+        android:paddingLeft="23dp"
+        android:textColor="#373737"
+        android:textFontWeight="400"
+        android:textSize="16dp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvEmail" />
+
+    <TextView
+        android:id="@+id/tvPassword"
+        android:layout_width="78dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="41dp"
+        android:layout_marginTop="14dp"
+        android:lineHeight="24dp"
+        android:text="Password"
+        android:textColor="#373737"
+        android:textFontWeight="500"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtEmail" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edtPass"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/item_email"
+        app:hintTextColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPassword"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="#838383">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_email"
+            android:hint="text password"
+            android:inputType="textPassword"
+            android:paddingLeft="23dp"
+            android:paddingBottom="10dp"
+            android:textSize="16dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <android.widget.Button
+        android:id="@+id/btnSignIn"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/item_signin"
+        android:text="Sign In"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textFontWeight="600"
+        android:textSize="17dp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edtPass" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_marginHorizontal="56dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSignIn">
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="Don’t have an account?"
+            android:textFontWeight="500"
+            android:textSize="15dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/tvRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:gravity="right"
+            android:text="Register"
+            android:textColor="#373737"
+            android:textFontWeight="500"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
