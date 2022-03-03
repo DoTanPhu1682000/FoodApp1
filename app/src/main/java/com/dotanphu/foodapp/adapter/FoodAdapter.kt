@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dotanphu.foodapp.databinding.ItemListFoodBinding
 import com.dotanphu.foodapp.model.Food
-import android.R
-import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import com.dotanphu.foodapp.activity.CartActivity
 
 
 class FoodAdapter(

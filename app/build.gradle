@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
     id 'com.google.gms.google-services'
 }
 
@@ -67,5 +68,17 @@ dependencies {
     //RxJava
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+
+
+    def roomVersion = "2.4.2"
+
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$roomVersion")
+
+    // optional - Paging 3 Integration
+    implementation("androidx.room:room-paging:2.5.0-alpha01")
 
 }
