@@ -1,7 +1,6 @@
 package com.dotanphu.foodapp.activity
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
@@ -49,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
     private fun loginUser() {
         //tao user trong firebase auth
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
-            startActivity(Intent(this, HomeActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }.addOnFailureListener {
             Toast.makeText(this, "Sign in failed", Toast.LENGTH_SHORT)
                 .show()

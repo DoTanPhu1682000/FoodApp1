@@ -47,16 +47,32 @@
         <entry key="..\:/Ahoctap/FoodApp/app/src/main/res/layout/item_list_food.xml" value="0.36666666666666664" />
         <entry key="..\:/Ahoctap/FoodApp/app/src/main/res/layout/next.xml" value="0.36666666666666664" />
         <entry key="..\:/Ahoctap/FoodApp/app/src/main/res/menu/menu_activityhome.xml" value="0.36666666666666664" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/drawable/bottom_sheet_dialog_shape.xml" value="0.25833333333333336" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/drawable/ic_area.xml" value="0.25833333333333336" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/drawable/ic_baseline_save_24.xml" value="0.25833333333333336" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/drawable/ic_category.xml" value="0.25833333333333336" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/drawable/ic_favorite.xml" value="0.25833333333333336" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/drawable/ic_search1.xml" value="0.25833333333333336" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/drawable/ic_user.xml" value="0.25833333333333336" />
         <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/activity_add.xml" value="0.21875" />
         <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/activity_cart.xml" value="0.213768115942029" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/activity_category_meals.xml" value="0.2421875" />
         <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/activity_dish.xml" value="0.213768115942029" />
         <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/activity_home.xml" value="0.264" />
         <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/activity_main.xml" value="0.21875" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/activity_meal_detail.xml" value="0.228125" />
         <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/activity_register.xml" value="0.213768115942029" />
         <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/activity_restaurant.xml" value="0.213768115942029" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/fragment_category.xml" value="0.2421875" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/fragment_favorites.xml" value="0.2421875" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/fragment_home.xml" value="0.2421875" />
         <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/item_list_category.xml" value="0.4" />
         <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/item_list_food.xml" value="0.213768115942029" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/item_list_meal.xml" value="0.2421875" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/layout/item_list_popular.xml" value="0.2421875" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/menu/bottom_nevigation.xml" value="0.2421875" />
+        <entry key="..\:/tdtasia/FoodApp/app/src/main/res/menu/menu_activityhome.xml" value="0.2421875" />
       </map>
     </option>
   </component>

@@ -14,12 +14,12 @@ class CartActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnArrow.setOnClickListener {
-            intent = Intent(this, HomeActivity::class.java)
+            intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
         binding.btnHome.setOnClickListener {
-            intent = Intent(this, HomeActivity::class.java)
+            intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
         binding.btnShopping.setOnClickListener {
