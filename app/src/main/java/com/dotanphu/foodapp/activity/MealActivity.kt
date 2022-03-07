@@ -12,9 +12,9 @@ import com.dotanphu.foodapp.vm.MealViewModel
 
 
 class MealActivity : AppCompatActivity() {
-     private  var mealId: String=""
-    private  var mealName: String=""
-    private  var mealThumb: String=""
+    private lateinit var mealId: String
+    private lateinit var mealName: String
+    private lateinit var mealThumb: String
     private lateinit var mealMvvm: MealViewModel
 
 
@@ -25,11 +25,14 @@ class MealActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         mealMvvm = ViewModelProviders.of(this)[MealViewModel::class.java]
+        getMealInformationFromIntent()
+        setInformationInView()
+
         mealMvvm.getMealDetail(mealId)
         observerMealDetailsLiveData()
 
-        getMealInformationFromIntent()
-        setInformationInView()
+
+
     }
 
     private fun observerMealDetailsLiveData() {
