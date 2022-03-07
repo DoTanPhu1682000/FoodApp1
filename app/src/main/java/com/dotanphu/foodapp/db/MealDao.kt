@@ -7,7 +7,7 @@ import com.dotanphu.foodapp.model.Meal
 @Dao
 interface MealDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(meal: Meal)
+    suspend fun insert(meal: Meal)
 
     @Delete
     suspend fun delete(meal: Meal)

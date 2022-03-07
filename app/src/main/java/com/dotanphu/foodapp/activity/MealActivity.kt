@@ -1,14 +1,18 @@
 package com.dotanphu.foodapp.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.dotanphu.foodapp.databinding.ActivityMealDetailBinding
+import com.dotanphu.foodapp.db.MealDatabase
 import com.dotanphu.foodapp.fragments.HomeFragment
 import com.dotanphu.foodapp.model.Meal
 import com.dotanphu.foodapp.vm.MealViewModel
+import com.dotanphu.foodapp.vm.MealViewModelFactory
 
 
 class MealActivity : AppCompatActivity() {
@@ -24,21 +28,35 @@ class MealActivity : AppCompatActivity() {
         binding = ActivityMealDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mealMvvm = ViewModelProviders.of(this)[MealViewModel::class.java]
+        val mealDatabase = MealDatabase.getInstance(this)
+        val viewModelFactory = MealViewModelFactory(mealDatabase)
+        mealMvvm = ViewModelProvider(this, viewModelFactory)[MealViewModel::class.java]
         getMealInformationFromIntent()
         setInformationInView()
 
         mealMvvm.getMealDetail(mealId)
         observerMealDetailsLiveData()
 
-
-
+        onFavoriteClick()
     }
 
+    private fun onFavoriteClick() {
+        binding.btnSave.setOnClickListener {
+            mealToSave?.let {
+                mealMvvm.insertMeal(it)
+                Toast.makeText(this, "Meal Save", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+
+    private var mealToSave: Meal? = null
     private fun observerMealDetailsLiveData() {
         mealMvvm.observerMealDetailsLiveData().observe(this, object : Observer<Meal> {
             override fun onChanged(t: Meal?) {
                 val meal = t
+                mealToSave = meal
+
                 binding.tvCategoryInfo.text = "Category: ${meal!!.strCategory}"
                 binding.tvAreaInfo.text = "Area: ${meal.strArea}"
                 binding.tvContent.text = meal.strInstructions
