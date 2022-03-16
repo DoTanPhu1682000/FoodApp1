@@ -17,6 +17,6 @@ class IntroActivity : AppCompatActivity() {
         Handler().postDelayed(Runnable {
             startActivity(Intent(this, DishActivity::class.java))
             finish()
-        }, 3000)
+        }, 6000)
     }
 }
