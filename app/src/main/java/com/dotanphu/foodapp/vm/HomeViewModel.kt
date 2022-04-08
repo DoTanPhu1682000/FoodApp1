@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dotanphu.foodapp.db.MealDatabase
 import com.dotanphu.foodapp.model.*
 import com.dotanphu.foodapp.retrofit.RetrofitInstance
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,6 +55,18 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
             }
 
         })
+    }
+
+    fun deleteMeal(meal: Meal){
+        viewModelScope.launch {
+            mealDatabase.mealDao().delete(meal)
+        }
+    }
+
+    fun insertMeal(meal: Meal){
+        viewModelScope.launch {
+            mealDatabase.mealDao().insert(meal)
+        }
     }
 
     fun observeCategoriesLiveData(): LiveData<List<Category>> {
