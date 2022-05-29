@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.dotanphu.foodapp.R
 import com.dotanphu.foodapp.activity.CategoryMealsActivity
 import com.dotanphu.foodapp.activity.MainActivity
 import com.dotanphu.foodapp.activity.MealActivity
@@ -65,12 +67,20 @@ class HomeFragment : Fragment() {
         onCategoryClick()
 
         onPopularItemLongClick()
+
+        onSearchIconClick()
+    }
+
+    private fun onSearchIconClick() {
+        binding.imgSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment2_to_searchFragment)
+        }
     }
 
     private fun onPopularItemLongClick() {
-        popularAdapter.onLongItemClick = {meal ->
+        popularAdapter.onLongItemClick = { meal ->
             val mealBottomSheetFragment = MealBottomSheetFragment.newInstance(meal.idMeal)
-            mealBottomSheetFragment.show(childFragmentManager,"Meal Info")
+            mealBottomSheetFragment.show(childFragmentManager, "Meal Info")
         }
     }
 
@@ -111,11 +121,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun observePopularItemLiveData() {
-        viewModel.observeMeal().observe(
-            viewLifecycleOwner
-        ) { mealList ->
-            popularAdapter.setMealList(mealsByCategoryList = mealList as ArrayList<MealsByCategory>)
-        }
+        viewModel.observeMeal().observe(viewLifecycleOwner,
+            { mealList ->
+                popularAdapter.setMealList(mealsByCategoryList = mealList as ArrayList<MealsByCategory>)
+            })
     }
 
 
