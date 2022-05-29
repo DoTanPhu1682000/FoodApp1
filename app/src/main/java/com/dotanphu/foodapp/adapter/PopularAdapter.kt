@@ -8,8 +8,10 @@ import com.dotanphu.foodapp.databinding.ItemListPopularBinding
 import com.dotanphu.foodapp.model.MealsByCategory
 
 class PopularAdapter() : RecyclerView.Adapter<PopularAdapter.ViewHolder>() {
+    var onLongItemClick: ((MealsByCategory) -> Unit)? = null
     private var mealsList = ArrayList<MealsByCategory>()
     lateinit var onItemClick: ((MealsByCategory) -> Unit)
+
     fun setMealList(mealsByCategoryList: ArrayList<MealsByCategory>) {
         this.mealsList = mealsByCategoryList
         notifyDataSetChanged()
@@ -31,6 +33,11 @@ class PopularAdapter() : RecyclerView.Adapter<PopularAdapter.ViewHolder>() {
         }
         holder.itemView.setOnClickListener {
             onItemClick.invoke(mealsList[position])
+        }
+
+        holder.itemView.setOnLongClickListener {
+            onLongItemClick?.invoke(mealsList[position])
+            true
         }
     }
 

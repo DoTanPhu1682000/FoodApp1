@@ -14,6 +14,7 @@ import com.dotanphu.foodapp.activity.MealActivity
 import com.dotanphu.foodapp.adapter.CategoriesAdapter
 import com.dotanphu.foodapp.adapter.PopularAdapter
 import com.dotanphu.foodapp.databinding.FragmentHomeBinding
+import com.dotanphu.foodapp.fragments.bottomsheet.MealBottomSheetFragment
 import com.dotanphu.foodapp.model.MealsByCategory
 import com.dotanphu.foodapp.vm.HomeViewModel
 
@@ -36,7 +37,7 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
 //        homeMvvm = ViewModelProviders.of(this)[HomeViewModel::class.java]
-        viewModel=(activity as MainActivity).viewModel
+        viewModel = (activity as MainActivity).viewModel
         popularAdapter = PopularAdapter()
     }
 
@@ -62,12 +63,21 @@ class HomeFragment : Fragment() {
         viewModel.getCategories()
         observeCategoriesLiveData()
         onCategoryClick()
+
+        onPopularItemLongClick()
+    }
+
+    private fun onPopularItemLongClick() {
+        popularAdapter.onLongItemClick = {meal ->
+            val mealBottomSheetFragment = MealBottomSheetFragment.newInstance(meal.idMeal)
+            mealBottomSheetFragment.show(childFragmentManager,"Meal Info")
+        }
     }
 
     private fun onCategoryClick() {
         categoriesAdapter.onItemClick = { category ->
             val intent = Intent(activity, CategoryMealsActivity::class.java)
-            intent.putExtra(CATEGORY_NAME,category.strCategory)
+            intent.putExtra(CATEGORY_NAME, category.strCategory)
             startActivity(intent)
         }
     }
@@ -101,10 +111,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun observePopularItemLiveData() {
-        viewModel.observeMeal().observe(viewLifecycleOwner,
-            { mealList ->
-                popularAdapter.setMealList(mealsByCategoryList = mealList as ArrayList<MealsByCategory>)
-            })
+        viewModel.observeMeal().observe(
+            viewLifecycleOwner
+        ) { mealList ->
+            popularAdapter.setMealList(mealsByCategoryList = mealList as ArrayList<MealsByCategory>)
+        }
     }
 
 
