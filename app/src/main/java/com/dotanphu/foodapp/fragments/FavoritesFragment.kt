@@ -48,20 +48,23 @@ class FavoritesFragment : Fragment() {
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
-            ) = true
+            ) : Boolean {
+                return true
+            }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 viewModel.deleteMeal(favoritesAdapter.differ.currentList[position])
 
-                Snackbar.make(requireView(), "Meal delete", Snackbar.LENGTH_LONG).setAction(
-                    "Undo",
-                    View.OnClickListener {
-                        viewModel.insertMeal(favoritesAdapter.differ.currentList[position])
-                    }
-                ).show()
+                Snackbar.make(requireView(), "Meal delete", Snackbar.LENGTH_LONG).apply {
+                    setAction("Undo", View.OnClickListener {
+                            viewModel.insertMeal(favoritesAdapter.differ.currentList[position])
+                        }
+                    ).show()
+                }
             }
         }
+
         ItemTouchHelper(itemTouchHelper).attachToRecyclerView(binding.rvFavorites)
     }
 

@@ -1,5 +1,7 @@
 package com.dotanphu.foodapp.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +21,7 @@ class MealActivity : AppCompatActivity() {
     private lateinit var mealId: String
     private lateinit var mealName: String
     private lateinit var mealThumb: String
+    private lateinit var youtubeLink: String
     private lateinit var mealMvvm: MealViewModel
 
 
@@ -38,6 +41,14 @@ class MealActivity : AppCompatActivity() {
         observerMealDetailsLiveData()
 
         onFavoriteClick()
+        onYoutubeImageClick()
+    }
+
+    private fun onYoutubeImageClick() {
+        binding.imgYoutube.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeLink))
+            startActivity(intent)
+        }
     }
 
     private fun onFavoriteClick() {
@@ -60,6 +71,8 @@ class MealActivity : AppCompatActivity() {
                 binding.tvCategoryInfo.text = "Category: ${meal!!.strCategory}"
                 binding.tvAreaInfo.text = "Area: ${meal.strArea}"
                 binding.tvContent.text = meal.strInstructions
+
+                youtubeLink = meal.strYoutube.toString()
             }
 
         })
