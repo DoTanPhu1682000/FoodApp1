@@ -15,11 +15,31 @@ import retrofit2.Response
 
 
 class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
+    private var ramdomMealLiveData = MutableLiveData<Meal>()
     private var popularItemsLiveData = MutableLiveData<List<MealsByCategory>>()
     private var categoriesLiveData = MutableLiveData<List<Category>>()
     private var favoritesMealsLiveData = mealDatabase.mealDao().getAllMeals()
     private var bottomSheetMealLiveData = MutableLiveData<Meal>()
     private var searchMealsLiveData = MutableLiveData<List<Meal>>()
+
+    fun getRamdomMeal() {
+        RetrofitInstance.foodApi.getRandomMeal().enqueue(object : Callback<MealList> {
+            override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
+                if (response.body() != null) {
+                    val ramdomMeal: Meal = response.body()!!.meals[0]
+                    ramdomMealLiveData.value = ramdomMeal
+                } else {
+                    return
+                }
+
+            }
+
+            override fun onFailure(call: Call<MealList>, t: Throwable) {
+                Log.d("HomeFragment", t.message.toString())
+            }
+
+        })
+    }
 
     fun getMealsByCategory() {
         RetrofitInstance.foodApi.getPopularItem("Seafood")
@@ -101,6 +121,10 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
         }
     )
 
+    fun observeRamdomMealLiveData(): LiveData<Meal> {
+        return ramdomMealLiveData
+    }
+
     fun observeSearchedMealsLiveData(): LiveData<List<Meal>> = searchMealsLiveData
 
     fun observeCategoriesLiveData(): LiveData<List<Category>> {
@@ -111,5 +135,5 @@ class HomeViewModel(private val mealDatabase: MealDatabase) : ViewModel() {
         return favoritesMealsLiveData
     }
 
-    fun observeBottomSheetMeal():LiveData<Meal> = bottomSheetMealLiveData
+    fun observeBottomSheetMeal(): LiveData<Meal> = bottomSheetMealLiveData
 }

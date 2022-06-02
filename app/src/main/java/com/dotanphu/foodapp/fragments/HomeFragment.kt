@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
 import com.dotanphu.foodapp.R
 import com.dotanphu.foodapp.activity.CategoryMealsActivity
 import com.dotanphu.foodapp.activity.MainActivity
@@ -17,6 +18,7 @@ import com.dotanphu.foodapp.adapter.CategoriesAdapter
 import com.dotanphu.foodapp.adapter.PopularAdapter
 import com.dotanphu.foodapp.databinding.FragmentHomeBinding
 import com.dotanphu.foodapp.fragments.bottomsheet.MealBottomSheetFragment
+import com.dotanphu.foodapp.model.Meal
 import com.dotanphu.foodapp.model.MealsByCategory
 import com.dotanphu.foodapp.vm.HomeViewModel
 
@@ -38,7 +40,7 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        homeMvvm = ViewModelProviders.of(this)[HomeViewModel::class.java]
+//        viewModel = ViewModelProviders.of(this)[HomeViewModel::class.java]
         viewModel = (activity as MainActivity).viewModel
         popularAdapter = PopularAdapter()
     }
@@ -55,6 +57,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getRamdomMeal()
+        observeRamdomMeal()
+
         preparePopularMeals()
         viewModel.getMealsByCategory()
         observePopularItemLiveData()
@@ -69,6 +74,14 @@ class HomeFragment : Fragment() {
         onPopularItemLongClick()
 
         onSearchIconClick()
+    }
+
+    private fun observeRamdomMeal() {
+        viewModel.observeRamdomMealLiveData().observe(viewLifecycleOwner, object : Observer<Meal> {
+            override fun onChanged(t: Meal?) {
+                Glide.with(this@HomeFragment).load(t!!.strMealThumb).into(binding.imgRandomMeal)
+            }
+        })
     }
 
     private fun onSearchIconClick() {
@@ -121,10 +134,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun observePopularItemLiveData() {
-        viewModel.observeMeal().observe(viewLifecycleOwner,
-            { mealList ->
-                popularAdapter.setMealList(mealsByCategoryList = mealList as ArrayList<MealsByCategory>)
-            })
+        viewModel.observeMeal().observe(viewLifecycleOwner) { mealList ->
+            popularAdapter.setMealList(mealsByCategoryList = mealList as ArrayList<MealsByCategory>)
+        }
     }
 
 

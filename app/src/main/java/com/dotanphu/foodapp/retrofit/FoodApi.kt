@@ -9,6 +9,9 @@ import retrofit2.http.Query
 
 interface FoodApi {
 
+    @GET ("random.php")
+    fun getRandomMeal():Call<MealList>
+
     @GET("filter.php?")
     fun getPopularItem(@Query("c") categoryName: String): Call<MealsByCategoryList>
 
@@ -23,4 +26,5 @@ interface FoodApi {
 
     @GET("search.php")
     fun searchMeals(@Query("s") searchQuery: String):Call<MealList>
+
 }
