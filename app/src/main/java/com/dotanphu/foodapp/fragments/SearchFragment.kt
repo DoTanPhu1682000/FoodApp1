@@ -1,5 +1,6 @@
 package com.dotanphu.foodapp.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,25 +8,34 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.dotanphu.foodapp.activity.MainActivity
+import com.dotanphu.foodapp.activity.MealActivity
 import com.dotanphu.foodapp.adapter.FavoritesMealsAdapter
 import com.dotanphu.foodapp.databinding.FragmentSearchBinding
-import com.dotanphu.foodapp.vm.HomeViewModel
+import com.dotanphu.foodapp.fragments.HomeFragment.Companion.MEAL_ID
+import com.dotanphu.foodapp.fragments.HomeFragment.Companion.MEAL_NAME
+import com.dotanphu.foodapp.fragments.HomeFragment.Companion.MEAL_THUMB
+import com.dotanphu.foodapp.vm.SearchViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
-    private lateinit var viewModel: HomeViewModel
+    private lateinit var viewModel: SearchViewModel
     private lateinit var searchRVAdapter: FavoritesMealsAdapter
+    private var mealId = ""
+    private var mealStr = ""
+    private var mealThub = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = (activity as MainActivity).viewModel
+        searchRVAdapter = FavoritesMealsAdapter()
+        viewModel = ViewModelProvider(this)[SearchViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -41,19 +51,16 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         prepareRecyclerView()
-
-        binding.imgSearchArrow.setOnClickListener {
-            searchMeal()
-        }
-
+        viewModel.searchMealDetail(searchQuery = String())
         observeSearchedMealsLiveData()
+        onSearchClick()
 
         var searchJob: Job? = null
         binding.edtSearch.addTextChangedListener { searchQuery ->
             searchJob?.cancel()
             searchJob = lifecycleScope.launch {
                 delay(500)
-                viewModel.searchMeal(searchQuery.toString())
+                viewModel.searchMealDetail(searchQuery.toString())
             }
         }
     }
@@ -64,10 +71,13 @@ class SearchFragment : Fragment() {
         })
     }
 
-    private fun searchMeal() {
-        val searchQuery = binding.edtSearch.text.toString()
-        if (searchQuery.isNotEmpty()) {
-            viewModel.searchMeal(searchQuery)
+    private fun onSearchClick() {
+        searchRVAdapter.onItemClick = { category ->
+            val intent = Intent(activity, MealActivity::class.java)
+            intent.putExtra(MEAL_ID, category.idMeal)
+            intent.putExtra(MEAL_NAME, category.strMeal)
+            intent.putExtra(MEAL_THUMB, category.strMealThumb)
+            startActivity(intent)
         }
     }
 

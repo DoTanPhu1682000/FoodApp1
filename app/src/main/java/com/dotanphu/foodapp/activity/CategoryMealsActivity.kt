@@ -2,7 +2,6 @@ package com.dotanphu.foodapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dotanphu.foodapp.adapter.CategoryMealsAdapter
@@ -23,10 +22,10 @@ class CategoryMealsActivity : AppCompatActivity() {
         prepareRecycleView()
         categoryMealsViewModel = ViewModelProviders.of(this)[CategoryMealsViewModel::class.java]
         categoryMealsViewModel.getMealsByCategory(intent.getStringExtra(HomeFragment.CATEGORY_NAME)!!)
-        categoryMealsViewModel.observeMealsLiveData().observe(this, { mealList ->
+        categoryMealsViewModel.observeMealsLiveData().observe(this) { mealList ->
             binding.tvCategoryCount.text = mealList.size.toString()
             categoryMealsAdapter.setMealsList(mealList)
-        })
+        }
     }
 
     private fun prepareRecycleView() {
