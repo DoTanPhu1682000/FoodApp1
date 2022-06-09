@@ -18,7 +18,7 @@ import com.dotanphu.foodapp.adapter.CategoriesAdapter
 import com.dotanphu.foodapp.adapter.PopularAdapter
 import com.dotanphu.foodapp.databinding.FragmentHomeBinding
 import com.dotanphu.foodapp.fragments.bottomsheet.MealBottomSheetFragment
-import com.dotanphu.foodapp.model.Meal
+import com.dotanphu.foodapp.model.MealList
 import com.dotanphu.foodapp.model.MealsByCategory
 import com.dotanphu.foodapp.vm.HomeViewModel
 
@@ -29,6 +29,8 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var categoriesAdapter: CategoriesAdapter
 
+    private lateinit var meal: MealList
+    private var randomMealId = ""
 
     companion object {
         const val MEAL_ID = "com.dotanphu.foodapp.fragments.idMeal"
@@ -40,7 +42,6 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        viewModel = ViewModelProviders.of(this)[HomeViewModel::class.java]
         viewModel = (activity as MainActivity).viewModel
         popularAdapter = PopularAdapter()
     }
@@ -59,6 +60,8 @@ class HomeFragment : Fragment() {
 
         viewModel.getRamdomMeal()
         observeRamdomMeal()
+        onRamdomMealClick()
+
 
         preparePopularMeals()
         viewModel.getMealsByCategory()
@@ -74,14 +77,28 @@ class HomeFragment : Fragment() {
         onPopularItemLongClick()
 
         onSearchIconClick()
+
+    }
+
+    private fun onRamdomMealClick() {
+        binding.randomMeal.setOnClickListener {
+            val temp = meal.meals[0]
+            val intent = Intent(activity, MealActivity::class.java)
+            intent.putExtra(MEAL_ID, temp.idMeal)
+            intent.putExtra(MEAL_NAME, temp.strMeal)
+            intent.putExtra(MEAL_THUMB, temp.strMealThumb)
+            startActivity(intent)
+        }
     }
 
     private fun observeRamdomMeal() {
-        viewModel.observeRamdomMealLiveData().observe(viewLifecycleOwner, object : Observer<Meal> {
-            override fun onChanged(t: Meal?) {
-                Glide.with(this@HomeFragment).load(t!!.strMealThumb).into(binding.imgRandomMeal)
+        viewModel.observeRamdomMealLiveData().observe(viewLifecycleOwner) { t ->
+                val mealImage = binding.imgRandomMeal
+                val imageUrl = t!!.meals[0].strMealThumb
+                randomMealId = t.meals[0].idMeal
+                Glide.with(this@HomeFragment).load(imageUrl).into(mealImage)
+                meal = t
             }
-        })
     }
 
     private fun onSearchIconClick() {
@@ -138,7 +155,6 @@ class HomeFragment : Fragment() {
             popularAdapter.setMealList(mealsByCategoryList = mealList as ArrayList<MealsByCategory>)
         }
     }
-
 
     private fun preparePopularMeals() {
         binding.rvPopular.apply {

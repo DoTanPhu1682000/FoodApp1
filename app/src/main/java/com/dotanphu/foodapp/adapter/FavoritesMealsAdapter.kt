@@ -10,8 +10,6 @@ import com.dotanphu.foodapp.databinding.ItemMealFavoritesBinding
 import com.dotanphu.foodapp.model.Meal
 
 class FavoritesMealsAdapter : RecyclerView.Adapter<FavoritesMealsAdapter.ViewHolder>() {
-    private var searchList = ArrayList<Meal>()
-
     var onItemClick: ((Meal) -> Unit)? = null
 
     inner class ViewHolder(val binding: ItemMealFavoritesBinding) :

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dotanphu.foodapp.activity.MainActivity
 import com.dotanphu.foodapp.adapter.FavoritesMealsAdapter
 import com.dotanphu.foodapp.databinding.FragmentFavoritesBinding
+import com.dotanphu.foodapp.model.Meal
 import com.dotanphu.foodapp.vm.HomeViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -39,7 +40,11 @@ class FavoritesFragment : Fragment() {
 
         prepareRecycleView()
         observeFavorites()
+        swipeToRemove()
 
+    }
+
+    private fun swipeToRemove() {
         val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
             ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT
@@ -48,24 +53,29 @@ class FavoritesFragment : Fragment() {
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
-            ) : Boolean {
+            ): Boolean {
                 return true
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
-                viewModel.deleteMeal(favoritesAdapter.differ.currentList[position])
+                val favoriteMeal = favoritesAdapter.differ.currentList[position]
 
-                Snackbar.make(requireView(), "Meal delete", Snackbar.LENGTH_LONG).apply {
-                    setAction("Undo", View.OnClickListener {
-                            viewModel.insertMeal(favoritesAdapter.differ.currentList[position])
-                        }
-                    ).show()
-                }
+                viewModel.deleteMeal(favoriteMeal)
+                showDeleteSnackBar(favoriteMeal)
+
             }
         }
 
         ItemTouchHelper(itemTouchHelper).attachToRecyclerView(binding.rvFavorites)
+    }
+
+    private fun showDeleteSnackBar(favoriteMeal: Meal) {
+        Snackbar.make(requireView(), "Meal deleted", Snackbar.LENGTH_LONG).apply {
+            setAction("undo", View.OnClickListener {
+                viewModel.insertMeal(favoriteMeal)
+            }).show()
+        }
     }
 
     private fun prepareRecycleView() {
@@ -77,8 +87,8 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun observeFavorites() {
-        viewModel.observeFavoritesMealsLiveData().observe(requireActivity(), { meals ->
+        viewModel.observeFavoritesMealsLiveData().observe(requireActivity()) { meals ->
             favoritesAdapter.differ.submitList(meals)
-        })
+        }
     }
 }

@@ -21,12 +21,6 @@
             android:name=".activity.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.AddActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.CartActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.MainActivity"
             android:exported="true">
 <!--            <intent-filter>-->
